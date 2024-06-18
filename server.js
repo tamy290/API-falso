@@ -35,12 +35,12 @@ class Company{
 
 //http://localhost:8080/api/users/new
 app.get('/api/users/new', (req, res) => {
-  return res.status(200).json(Usuario)
+  return res.status(200).json(User)
 });
 
 
 app.get('/api/companies/new', (req, res) => {
-  return res.status(200).json(Empresa);
+  return res.status(200).json(company);
 });
 
 app.get('/api/user/company', (req, res) => {

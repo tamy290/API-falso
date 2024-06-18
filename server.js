@@ -2,22 +2,25 @@ const { faker } = require('@faker-js/faker');
 const express = require ('express');
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-class Usuario{
+
+class User{
   constructor(){
       this.id = faker.string.uuid();
       this.primerNombre = faker.person.firstName();
       this.apellido = faker.person.lastName();
-      this.telefonoelefono = faker.phone.number();
+      this.telefono = faker.phone.number();
       this.email=faker.internet.email();
       this.contraseña= faker.internet.password();
   }
 }
 
-class Empresa{
+class Company{
   constructor(){
       this.id = faker.string.uuid();
-      this.nombre = faker.company.companyName();
+      this.nombre = faker.company.name();
       this.direccion = {
         calle: faker.location.streetAddress(),
         ciudad: faker.location.city(),
@@ -36,12 +39,12 @@ app.get('/api/users/new', (req, res) => {
 });
 
 
-app.get('/api/empresa/new', (req, res) => {
+app.get('/api/companies/new', (req, res) => {
   return res.status(200).json(Empresa);
 });
 
-app.get('/api/usuario/empresa', (req, res) => {
-  return res.status(200).json({ usuario: new Usuario(), empresa: new Empresa() });
+app.get('/api/user/company', (req, res) => {
+  return res.status(200).json({ user: new User(), company: new Company() });
 });
 
 app.listen(8080, () => {

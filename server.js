@@ -40,7 +40,7 @@ app.get('/api/users/new', (req, res) => {
 
 
 app.get('/api/companies/new', (req, res) => {
-  return res.status(200).json(company);
+  return res.status(200).json(Company);
 });
 
 app.get('/api/user/company', (req, res) => {

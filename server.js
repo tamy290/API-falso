@@ -1,13 +1,14 @@
-const express = require('express');
-const app = express();
 const { faker } = require('@faker-js/faker');
+const express = require ('express');
+const app = express();
+
 
 class Usuario{
   constructor(){
-      this._id = faker.datatype.int();
+      this.id = faker.string.uuid();
       this.primerNombre = faker.person.firstName();
       this.apellido = faker.person.lastName();
-      this.telefonoelefono = faker.phone.numberumber();
+      this.telefonoelefono = faker.phone.number();
       this.email=faker.internet.email();
       this.contraseña= faker.internet.password();
   }
@@ -15,27 +16,32 @@ class Usuario{
 
 class Empresa{
   constructor(){
-      this._id = faker.datatype.int();
-      this.nombre = faker.nombre.companyName();
-      this.direccion.faker.location.street();
+      this.id = faker.string.uuid();
+      this.nombre = faker.company.companyName();
+      this.direccion = {
+        calle: faker.location.streetAddress(),
+        ciudad: faker.location.city(),
+        estado: faker.location.state(),
+        codigoPostal: faker.location.zipCode(),
+        pais: faker.location.country(),
       };
   }
+}
 
 
 
 //http://localhost:8080/api/users/new
 app.get('/api/users/new', (req, res) => {
-  console.log('Nuevo usuario creado')
-  res.json(new Usuario());
+  return res.status(200).json(Usuario)
 });
 
 
 app.get('/api/empresa/new', (req, res) => {
-  res.json(new Empresa());
+  return res.status(200).json(Empresa);
 });
 
 app.get('/api/usuario/empresa', (req, res) => {
-  res.json({ usuario: new Usuario(), empresa: new Empresa() });
+  return res.status(200).json({ usuario: new Usuario(), empresa: new Empresa() });
 });
 
 app.listen(8080, () => {
